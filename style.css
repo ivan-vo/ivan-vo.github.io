@@ -1,9 +1,56 @@
 body{
-    font-size: medium;
-    color:blueviolet;
+    font-size: 20px;
+    color:rgb(23, 34, 53);
     font-family:sans-serif;
+    margin: 20px;
+    word-wrap: normal;
 }
+header{
+    position: fixed;
+    background:rgb(250, 230, 230);
+    display: inline-block;
+    width: 100%;
+    margin: -20px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+
 h1,h2{
-    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-family:'New Tegomin';
     color: chocolate;
+}
+footer{
+    background-color: rgb(77, 76, 72);
+    padding: 10px;
+}
+.name{
+    font-family: 'Gloria Hallelujah';
+    font-size: 50px;
+    margin-bottom: -40px;
+}
+header h3{
+    font-family: 'Cinzel';
+}
+.myFoto{
+    float: right;
+    width: 120px;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+.main{
+    padding-top: 140px;
+}
+.instagramimg{
+    width: 35px;
+    position: absolute;
+    right: 30px;
+    bottom: 20px;
+}
+table td{
+    inset-block: auto;
+}
+.aboutme{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
