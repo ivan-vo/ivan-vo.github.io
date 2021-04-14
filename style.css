@@ -15,13 +15,14 @@ header{
     padding-left: 10px;
 }
 
-h1,h2{
+h1{
     font-family:'New Tegomin';
     color: chocolate;
 }
 footer{
-    background-color: rgb(77, 76, 72);
+    background-color: rgb(179, 175, 160);
     padding: 10px;
+    margin: 0px;
 }
 .name{
     font-family: 'Gloria Hallelujah';
@@ -38,7 +39,7 @@ header h3{
     margin-top: 20px;
 }
 .main{
-    padding-top: 140px;
+    padding-top: 180px;
 }
 .instagramimg{
     width: 35px;
@@ -49,8 +50,32 @@ header h3{
 table td{
     inset-block: auto;
 }
-.aboutme{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.conteiner{
+    border-bottom: 3px solid darkblue;
+    display: flex;
+    align-items:flex-start;
+    flex-direction: row;
+}
+#last-conteiner{
+    border-bottom: none;
+}
+.box{
+    margin: 10px;
+    flex:1;
+}
+#about1{
+flex-grow: 1;
+}
+#about2{
+    flex-grow: 3;
+}
+.box h4{
+    margin: 2px;
+}
+li{
+    border-bottom: 1px solid rgb(146, 146, 255);
+}
+ul{
+    list-style-type: none;
+    padding-left: 0px;
 }
