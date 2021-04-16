@@ -77,10 +77,10 @@ flex-grow: 1;
 .box h4{
     margin: 2px;
 }
-li{
+.conteiner li{
     border-bottom: 1px solid rgb(146, 146, 255);
 }
-ul{
+.conteiner ul{
     list-style-type: none;
     padding-left: 0px;
 }
@@ -92,6 +92,9 @@ aside{
     min-width: 200px;
     max-width: 200px;
     top: 150px;
+}
+aside a{
+    color: rgb(189, 135, 162);
 }
 @media (max-width: 1600px) {
     main{
