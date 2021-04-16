@@ -28,24 +28,28 @@ footer{
     font-family: 'Gloria Hallelujah';
     font-size: 50px;
     margin-bottom: -40px;
+    margin-top: 0px;
 }
 header h3{
     font-family: 'Cinzel';
 }
-.myFoto{
+.my-foto{
     float: right;
     width: 120px;
     margin-right: 20px;
-    margin-top: 20px;
+    margin-top: 10px;
 }
-.main{
+main{
     padding-top: 180px;
+    max-width: 1100px;
+    margin: auto;
+    background-color: rgb(223, 255, 223);
 }
 .instagramimg{
     width: 35px;
     position: absolute;
-    right: 30px;
-    bottom: 20px;
+    top: 5px;
+    right: 5px;
 }
 table td{
     inset-block: auto;
@@ -55,6 +59,7 @@ table td{
     display: flex;
     align-items:flex-start;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 #last-conteiner{
     border-bottom: none;
@@ -78,4 +83,36 @@ li{
 ul{
     list-style-type: none;
     padding-left: 0px;
+}
+footer{
+    position: relative;
+}
+aside{
+    position: fixed;
+    min-width: 200px;
+    max-width: 200px;
+    top: 150px;
+}
+@media (max-width: 1600px) {
+    main{
+        margin-left: 200px;
+    }
+}
+
+@media (max-width: 500px) {
+    .my-foto{
+        display: none;    
+    }
+    aside{
+        display: none;
+    }
+    main{
+        margin: 0px;
+    }
+}
+@media (max-width: 331px) {
+    main{
+        padding-top: 246px;
+        margin: 0px;
+    }
 }
