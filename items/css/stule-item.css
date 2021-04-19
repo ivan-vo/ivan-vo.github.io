@@ -1,0 +1,42 @@
+body {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#tasks {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    max-width: 70%;
+    margin: auto;
+    flex-wrap: wrap;
+}
+
+.item {
+    border: 2px solid rgb(255, 189, 103);
+    border-radius: 20px;
+    margin: 5px;
+    max-width: 320px;
+    min-width: 260px;
+}
+
+.done-task .title {
+    text-decoration: line-through;
+    color: rgb(80, 78, 78);
+}
+
+.item-done {
+    border: 2px solid rgb(151, 255, 103);
+}
+
+.date-not-correct.date-not-correct {
+    color: red;
+}
+
+.description {
+    color: rgb(98, 105, 165);
+    font-size: 90%;
+    margin-left: 25px;
+    margin-right: 5px;
+}
