@@ -11,7 +11,7 @@ let tasks = [];
 let milk = new Item('Buy milk', new Date(2021, 3, 20), true, "Buy milk, 400ml, 2,5%, korivka");
 tasks.push(milk);
 tasks.push(new Item('Buy car', "", false, "Buy new Toyota supra :)"));
-tasks.push(new Item('Win the math', new Date(2021, 2, 20), false, "win the volleyball match"));
+tasks.push(new Item('Win the math', new Date(2021, 2, 20), false));
 tasks.push(new Item('Win the math', new Date(2021, 5, 20), false, "win the volleyball match"));
 tasks.push(new Item('New PC', new Date(2021, 4, 19), false, "Buy new laptop(Lenovo ThinkPad X440) 16:CRM"));
 tasks.push(new Item('Win the math', new Date(2021, 2, 19), true, "win the futball match"));
