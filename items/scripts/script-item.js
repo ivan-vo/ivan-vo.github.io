@@ -1,9 +1,11 @@
 console.log("Script was connected");
 
 class Item {
+    id;
     constructor(title, dueDate, description, done) {
         if (typeof title === 'object') {
             Object.assign(this, title);
+            this.id = new Date().getTime() + Math.floor(Math.random() * 1000);
         }else{
         this.title = title;
         dueDate === '' ? this.dueDate = undefined : this.dueDate = dueDate;;
@@ -11,7 +13,7 @@ class Item {
         done === undefined ? this.done = false : this.done = done;        
         this.id = parseInt(new Date().getTime() + "" + Math.floor(Math.random() * 1000));
         }
-    }
+    } 
 }
 
 let tasks = [];
@@ -36,8 +38,9 @@ taskForm.addEventListener('submit', (event) => {
     if (!(objectItem.dueDate === '')) {
         objectItem.dueDate = new Date(objectItem.dueDate);
     }
-    const item = new Item(objectItem);
+    let item = new Item(objectItem);
     tasks.push(item);
+    console.log(tasks);
     appendItem(item);
     taskForm.reset();
 }) 

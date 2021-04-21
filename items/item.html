@@ -12,16 +12,16 @@
 <body>
     <h2>MyTasks:</h2>
     <div>
-        <button onclick="getAllTask()">Get All my task:</button> <input onclick="getAllTask()" type="radio" name="task-mod" id="task-mod-1">
+        <input onclick="getAllTask()" type="radio" name="task-mod" id="task-mod-1"><button onclick="getAllTask()">Get All my task:</button> 
         <button onclick="getAllNotDoneTask()">Get All not done task:</button><input onclick="getAllNotDoneTask()" type="radio" name="task-mod" id="task-mod-2">
     </div>
     <section id="tasks">
     </section>
     <form name="taskForm">
         <input type="text" name="title" placeholder="title" required>
-        <input type="text" name="dueDate" placeholder="2021, 2, 20">
+        <input type="date" name="dueDate" placeholder="2021, 2, 20">
         <input type="text" name="description" placeholder="Description">
-        <button type="submit">Add</button>
+        <button type="submit">Add new task</button>
     </form>
     <script type="text/javascript" src="scripts/script-item.js">
     </script>
