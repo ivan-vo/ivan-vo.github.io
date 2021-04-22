@@ -42,7 +42,13 @@ taskForm.addEventListener('submit', (event) => {
         objectItem.dueDate = new Date(objectItem.dueDate);
     }
     let item = new Item(objectItem);
-    tasks.push(item);
+    fetch("http://localhost:5000/lists/1/tasks", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    },
+    body: JSON.stringify(item)
+  })
     appendItem(item);
     taskForm.reset();
 }) 
@@ -54,17 +60,23 @@ function clearSection() {
 function getAllTask() {
     document.getElementById("task-mod-1").checked = true;
     clearSection();
-    tasks.forEach(appendItem);
+    // tasks.forEach(appendItem);
+    fetch("http://localhost:5000/tasks",)
+        .then(response => response.json())
+        .then(responce_tasks => responce_tasks.forEach(appendItem));
 }
 
 function getAllNotDoneTask() {
     document.getElementById("task-mod-2").checked = true;
     clearSection();
-    tasks.forEach(function(item, index, array) {
-        if (item.done === false) {
-            appendItem(item);
-        }
-    });
+    fetch("http://localhost:5000/tasks",)
+        .then(response => response.json())
+        .then(responce_tasks => responce_tasks.forEach(appendItem));
+    // tasks.forEach(function(item, index, array) {
+    //     if (item.done === false) {
+    //         appendItem(item);
+    //     }
+    // });
 }
 
 function removeItem(_target, _section) {
@@ -131,6 +143,5 @@ function appendItem(item) {
     result += `</section>`;
     sectionTask.innerHTML += result;
 }
-fetch("http://localhost:5000/tasks",)
-    .then(response => response.json())
-    .then(responce_tasks => responce_tasks.forEach(appendItem));
+
+
