@@ -1,19 +1,23 @@
 console.log("Script was connected");
 
 class Item {
-    id;
+    static id = 0;
     constructor(title, dueDate, description, done) {
         if (typeof title === 'object') {
             Object.assign(this, title);
-            this.id = new Date().getTime() + Math.floor(Math.random() * 1000);
+            this.id = Item.getId();
         }else{
         this.title = title;
         dueDate === '' ? this.dueDate = undefined : this.dueDate = dueDate;;
         this.description = description;
-        done === undefined ? this.done = false : this.done = done;        
-        this.id = parseInt(new Date().getTime() + "" + Math.floor(Math.random() * 1000));
+        done === undefined ? this.done = false : this.done = done;
+        this.id = Item.getId()
         }
     } 
+    static getId(){
+        Item.id = Item.id + 1;
+        return Item.id;
+    }
 }
 
 let tasks = [];
@@ -27,11 +31,10 @@ tasks.push(new Item('New PC', new Date(2021, 4, 19), "Buy new laptop(Lenovo Thin
 tasks.push(new Item('Win the math', new Date(2021, 2, 19), "win the futball match", true));
 
 const sectionTask = document.getElementById('tasks');
-getAllTask()
+// getAllTask()
 
 const taskForm = document.forms['taskForm'];
 taskForm.addEventListener('submit', (event) => {
-    console.log("Submitted");
     event.preventDefault();
     const formItemData = new FormData(taskForm);
     const objectItem = Object.fromEntries(formItemData.entries());
@@ -40,12 +43,9 @@ taskForm.addEventListener('submit', (event) => {
     }
     let item = new Item(objectItem);
     tasks.push(item);
-    console.log(tasks);
     appendItem(item);
     taskForm.reset();
 }) 
-
-
 
 function clearSection() {
     sectionTask.innerHTML = "";
@@ -74,8 +74,10 @@ function removeItem(_target, _section) {
         tasks.forEach(function(item, index, array) {
             if (item.id == sectionId) {
                 array.splice(index, 1);
+                console.log(tasks)
             }
         });
+        
     }
 }
 
@@ -108,6 +110,9 @@ function appendItem(item) {
     }
     result += ` <span class = "title"> ${item.title } </span>`;
     let date;
+    if (!(item.dueDate === '')) {
+        item.dueDate = new Date(item.dueDate);
+    }
     if (item.dueDate === undefined || item.dueDate ==="") {
         date = null;
     } else {
@@ -126,3 +131,6 @@ function appendItem(item) {
     result += `</section>`;
     sectionTask.innerHTML += result;
 }
+fetch("http://localhost:5000/tasks",)
+    .then(response => response.json())
+    .then(responce_tasks => responce_tasks.forEach(appendItem));
