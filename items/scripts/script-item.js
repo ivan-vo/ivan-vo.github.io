@@ -5,13 +5,11 @@ class Item {
     constructor(title, dueDate, description, done) {
         if (typeof title === 'object') {
             Object.assign(this, title);
-            this.id = Item.getId();
         }else{
         this.title = title;
         dueDate === '' ? this.dueDate = undefined : this.dueDate = dueDate;;
         this.description = description;
         done === undefined ? this.done = false : this.done = done;
-        this.id = Item.getId()
         }
     } 
     static getId(){
@@ -38,18 +36,16 @@ taskForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const formItemData = new FormData(taskForm);
     const objectItem = Object.fromEntries(formItemData.entries());
-    if (!(objectItem.dueDate === '')) {
-        objectItem.dueDate = new Date(objectItem.dueDate);
-    }
     let item = new Item(objectItem);
     fetch("http://localhost:5000/lists/1/tasks", {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8'
-    },
-    body: JSON.stringify(item)
-  })
-    appendItem(item);
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(item)
+    })
+    .then(responce => responce.json())
+    .then(responce => appendItem(responce))
     taskForm.reset();
 }) 
 
@@ -60,7 +56,6 @@ function clearSection() {
 function getAllTask() {
     document.getElementById("task-mod-1").checked = true;
     clearSection();
-    // tasks.forEach(appendItem);
     fetch("http://localhost:5000/tasks",)
         .then(response => response.json())
         .then(responce_tasks => responce_tasks.forEach(appendItem));
@@ -69,66 +64,64 @@ function getAllTask() {
 function getAllNotDoneTask() {
     document.getElementById("task-mod-2").checked = true;
     clearSection();
-    fetch("http://localhost:5000/tasks",)
+    fetch("http://localhost:5000/tasks/notdone",)
         .then(response => response.json())
         .then(responce_tasks => responce_tasks.forEach(appendItem));
-    // tasks.forEach(function(item, index, array) {
-    //     if (item.done === false) {
-    //         appendItem(item);
-    //     }
-    // });
 }
 
 function removeItem(_target, _section) {
     if (_target.tagName === "BUTTON") {
         _section.remove();
         let sectionId = _section.id.slice(6);
-        tasks.forEach(function(item, index, array) {
-            if (item.id == sectionId) {
-                array.splice(index, 1);
-                console.log(tasks)
-            }
-        });
-        
+        fetch(`http://localhost:5000/lists/tasks/${sectionId}`, {
+        method: 'DELETE',
+        })
     }
 }
 
-function checkDateItem(date) {
+function checkDateItem(datetime) {
+    date = new Date(datetime);
     return (date > new Date());
 }
 
-function SetDoneByCheckBox(_event) {
-    console.log(_event.target.checked);
+async function SetDoneByCheckBox(_event) {
     let sectionId = _event.target.closest("SECTION").id.slice(6);
-    tasks.forEach(function(item, index, array) {
-        if (item.id == sectionId) {
-            _event.target.checked ? item.done = true : item.done = false;
-            if (document.getElementById("task-mod-2").checked) {
-                getAllNotDoneTask();
-            }
-            else{
-                getAllTask()
-            }
-        }
-    });
+    let putItem = await getItemById(sectionId);
+    _event.target.checked ? putItem[0].done = true : putItem[0].done = false;
+    await fetch(`http://localhost:5000/lists/tasks/${sectionId}`, {
+    method: 'PATCH',
+    headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+        },
+        body: JSON.stringify(putItem[0])
+    })
+    if (document.getElementById("task-mod-2").checked) {
+        getAllNotDoneTask();
+    }
+    else{
+        getAllTask()
+    }
+}
+
+function getItemById(id) {
+    return fetch(`http://localhost:5000/tasks/${id}`,)
+        .then(response => response.json());
 }
 
 function appendItem(item) {
     let result;
     if (item.done === true) {
-        result = `<section id="title-${item.id}" onclick="removeItem(event.target,this)" class="item item-done"><p class="done-task"><input type="checkbox" checked onclick="SetDoneByCheckBox(event)"> </input>`;
+        result = `<section id="title-${item.itemId}" onclick="removeItem(event.target,this)" class="item item-done"><p class="done-task"><input type="checkbox" checked onclick="SetDoneByCheckBox(event)"> </input>`;
     } else {
-        result = `<section id="title-${item.id}" onclick="removeItem(event.target,this)" class="item"><p><input type="checkbox" onclick="SetDoneByCheckBox(event)"> </input>`;
+        result = `<section id="title-${item.itemId}" onclick="removeItem(event.target,this)" class="item"><p><input type="checkbox" onclick="SetDoneByCheckBox(event)"> </input>`;
     }
     result += ` <span class = "title"> ${item.title } </span>`;
     let date;
-    if (!(item.dueDate === '')) {
-        item.dueDate = new Date(item.dueDate);
-    }
-    if (item.dueDate === undefined || item.dueDate ==="") {
+    if (item.dueDate === undefined || item.dueDate === "" || item.dueDate == null) {
         date = null;
     } else {
-        date = item.dueDate.toString().split(' ');
+        date = new Date(item.dueDate);
+        date = date.toString().split(' ');
     }
     if (!checkDateItem(item.dueDate) && !(date === null)) {
         result += ` - <span class="date-not-correct">${date[1]} - ${date[2]} - ${date[3]}</span>`;
