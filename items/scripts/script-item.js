@@ -136,5 +136,3 @@ function appendItem(item) {
     result += `</section>`;
     sectionTask.innerHTML += result;
 }
-
-
