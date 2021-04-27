@@ -45,7 +45,7 @@ taskForm.addEventListener('submit', (event) => {
         body: JSON.stringify(item)
     })
     .then(responce => responce.json())
-    .then(responce => appendItem(responce))
+    .then(appendItem)
     taskForm.reset();
 }) 
 

@@ -12,13 +12,15 @@ let rectangles = [
     { width: 4, height: 4, color: "black" }
 ];
 
-let hasColor = c => rectangle => rectangle.color == c;
+let hasColor = c => rectangle => rectangle.color  == c;
 let isSqure = rectangle => rectangle.width == rectangle.height;
 let calcArea = rectangle => rectangle.width * rectangle.height;
 let calcPerimeter = rectangle => (rectangle.width + rectangle.height) * 2;
 
-let sum = elements => elements.reduce((a, b) => a + b, 0);
+// let sum = elements => elements.reduce((a, b) => a + b, 0);
 let max = elements => elements.reduce((a, b) => a >= b ? a : b);
+const add = (a, b) => a + b;
+let sum = reduce(add, 0);
 
 let map = mapFunc => figureArray => figureArray.map(mapFunc);
 let filter = filterFunc => figureArray => figureArray.filter(filterFunc);
@@ -30,7 +32,11 @@ let combine = (...funcs) => data => funcs.reduceRight((result, func) => func(res
 let or = (fn1, fn2) => data => fn1(data) || fn2(data);
 let and = (fn1, fn2) => data => fn1(data) && fn2(data);
 let all = (...funcs) => data => funcs.reduce((result, func) => func(data) && result, true);
-let any = (...funcs) => data => funcs.reduce((result, func) => func(data) || result, false); 
+
+let argsToArrar = fn => (...args) => fn(args);
+const falseFn = () => false;
+let any = argsToArrar(reduce(or, falseFn))
+
 
 let maxAreaBlackSquareFlow = flow(
     filter(all(hasColor('black'), isSqure)),
